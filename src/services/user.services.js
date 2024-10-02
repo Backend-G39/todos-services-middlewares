@@ -23,10 +23,15 @@ const updateServices = async (id, user) => {
   );
 }
 
+const getUserServices = async (email) => {
+  return await User.findOne({ where: { email } });
+}
+
 module.exports = {
   getAllServices,
   createServices,
   getOneServices,
   removeServices,
-  updateServices
+  updateServices,
+  getUserServices
 }

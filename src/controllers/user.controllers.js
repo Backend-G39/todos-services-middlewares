@@ -35,10 +35,19 @@ const update = catchError(async (req, res) => {
   return res.json(result[1][0]);
 });
 
+const login = catchError(async (req, res) => {
+
+  const user = req.userLogin
+  if (!user) return res.status(401).json({ error: "Invalid credentials" })
+
+  return res.json({ user })
+})
+
 module.exports = {
   getAll,
   create,
   getOne,
   remove,
-  update
+  update,
+  login
 }
