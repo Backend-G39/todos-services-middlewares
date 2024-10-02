@@ -51,11 +51,16 @@ const login = catchError(async (req, res) => {
   return res.json({ user, token })
 })
 
+const logged = catchError(async (req, res) => {
+  return res.json(req.user)
+})
+
 module.exports = {
   getAll,
   create,
   getOne,
   remove,
   update,
-  login
+  login,
+  logged
 }

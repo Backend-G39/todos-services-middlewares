@@ -1,4 +1,4 @@
-const { getAll, create, getOne, remove, update, login } = require('../../controllers/user.controllers');
+const { getAll, create, getOne, remove, update, login, logged } = require('../../controllers/user.controllers');
 const express = require('express');
 const hash = require('../../middlewares/hash.middlewares');
 const credentials = require('../../middlewares/login.middlewares');
@@ -12,6 +12,9 @@ routerUser.route('/')
 
 routerUser.route('/login')
   .post(credentials, login)
+
+routerUser.route('/me')
+  .get(verifyJWT, logged)
 
 routerUser.route('/:id')
   .get(verifyJWT, getOne)
