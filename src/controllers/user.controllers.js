@@ -1,5 +1,6 @@
 const catchError = require('../utils/catchError');
 const { getAllServices, createServices, getOneServices, removeServices, updateServices } = require('../services/user.services');
+const jwt = require("jsonwebtoken")
 
 const getAll = catchError(async (req, res) => {
   const results = await getAllServices()
@@ -40,7 +41,14 @@ const login = catchError(async (req, res) => {
   const user = req.userLogin
   if (!user) return res.status(401).json({ error: "Invalid credentials" })
 
-  return res.json({ user })
+  const token = jwt.sign(
+    { user },
+    process.env.TOKEN_SECRET,
+    { expiresIn: '1d' }
+
+  )
+
+  return res.json({ user, token })
 })
 
 module.exports = {
